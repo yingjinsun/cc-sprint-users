@@ -7,7 +7,8 @@ urlpatterns = {
     path('', views.index, name='index'),
 
     # ex: /infos/users
-    path('users', views.getAllUsers, name='getAllUsers'),
+    path('users', views.users, name='users'),
+
 
     # ex: /infos/users/1
     path('users/<int:user_id>', views.getCertainUser, name='getUserByUserId'),
