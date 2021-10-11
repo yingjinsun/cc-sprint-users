@@ -12,8 +12,8 @@ class User(models.Model):
     email = models.CharField(max_length=50)
     userAddress = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.nameLast + " " + self.nameFirst
+    # def __str__(self):
+    #     return self.nameLast + " " + self.nameFirst
 
 
 class Address(models.Model):
@@ -27,5 +27,5 @@ class Address(models.Model):
     postalCode = models.CharField(max_length=50)
     userId_fk = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.addressNo + ", "  +self.streetName1 + ", " + self.streetName2 + ", " + self.city
+    # def __str__(self):
+    #     return self.addressNo + ", "  +self.streetName1 + ", " + self.streetName2 + ", " + self.city

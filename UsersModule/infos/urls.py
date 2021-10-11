@@ -2,13 +2,20 @@ from django.urls import path
 
 from . import views
 
-urlpatterns = [
-    # ex: /polls/
+urlpatterns = {
+    # ex: /infos/
     path('', views.index, name='index'),
-    # # ex: /polls/5/
-    # path('<int:question_id>/', views.detail, name='detail'),
-    # # ex: /polls/5/results/
+
+    # ex: /infos/users
+    path('users', views.getAllUsers, name='getAllUsers'),
+
+    # ex: /infos/users/1
+    path('users/<int:user_id>', views.getCertainUser, name='getUserByUserId'),
+    # ex: /infos/users/1/address
     # path('<int:question_id>/results/', views.results, name='results'),
-    # # ex: /polls/5/vote/
-    # path('<int:question_id>/vote/', views.vote, name='vote'),
-]
+
+    # ex: /infos/addresses
+    path('addresses', views.getAllAddresses, name='getAllAddresses'),
+    # ex: /infos/addresses/1
+    path('addresses/<int:address_id>', views.getCertainAddress, name='getAddressByAddressId'),
+}
