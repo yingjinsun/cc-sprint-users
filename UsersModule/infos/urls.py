@@ -11,12 +11,12 @@ urlpatterns = {
 
 
     # ex: /infos/users/1
-    path('users/<int:user_id>', views.getCertainUser, name='getUserByUserId'),
+    path('users/<int:user_id>', views.certainUser, name='getUserByUserId'),
     # ex: /infos/users/1/address
     # path('<int:question_id>/results/', views.results, name='results'),
 
     # ex: /infos/addresses
-    path('addresses', views.getAllAddresses, name='getAllAddresses'),
+    path('addresses', views.addresses, name='addresses'),
     # ex: /infos/addresses/1
-    path('addresses/<int:address_id>', views.getCertainAddress, name='getAddressByAddressId'),
+    path('addresses/<int:address_id>', views.certainAddress, name='getAddressByAddressId'),
 }
