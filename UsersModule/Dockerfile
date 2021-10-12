@@ -1,10 +1,12 @@
-FROM python:3.6-alpine
+FROM python:3.8-alpine
 
 MAINTAINER Zhan Tong <ZTColumbia.github.io>
 
 EXPOSE 8000
 
+RUN apk update
 RUN apk add --no-cache gcc python3-dev musl-dev
+RUN pip install mysqlclient
 
 ADD . /django_ec2
 
