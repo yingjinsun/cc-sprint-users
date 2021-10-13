@@ -17,7 +17,9 @@ def users(request):
         user_list_json = UsersServiceImple().getAllUsers()
 
         response = Response().success(user_list_json)
-        return HttpResponse(json.dumps(response), content_type="application/json")
+        result = HttpResponse(json.dumps(response), content_type="application/json")
+        result['Access-Control-Allow-Origin'] = 'http://127.0.0.1:8002'  # 设置请求头
+        return result
     elif request.method == 'POST':
         requestDict = eval(request.body)
         if requestDict:
