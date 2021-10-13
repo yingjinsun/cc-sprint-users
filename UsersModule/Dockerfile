@@ -10,6 +10,7 @@ RUN apk update
 RUN apk add musl-dev mariadb-dev gcc
 RUN pip install mysqlclient
 RUN pip install Django
+RUN pip install django-cors-headers
 
 ADD . /django_ec2
 WORKDIR /django_ec2
