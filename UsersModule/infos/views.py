@@ -5,6 +5,7 @@ import json
 from ResponseUtil import Response
 from infos.services.UsersService import UsersServiceImple
 from infos.services.AddressService import AddressServiceImple
+from ConstantUtil import Constant
 
 from django.core import serializers
 def index(request):
@@ -24,16 +25,23 @@ def users(request):
         requestDict = eval(request.body)
         if requestDict:
             result = UsersServiceImple().addUser(requestDict)
-            response = Response().success(result)
+            response = Response().resp(Constant().POST,result) #201
             return HttpResponse(json.dumps(response), content_type="application/json")
 
     response = Response().failed()
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 def certainUser(request, user_id):
+    if not user_id:
+        response = Response().resp(Constant().BAD_DATA, None) #400
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
     if request.method == 'GET':
         user_json = UsersServiceImple().getUserByUserId(user_id)
-        response = Response().success(user_json)
+        if not user_json:
+            response = Response().resp(Constant().NOT_FOUND, None) #404
+        else:
+            response = Response().success(user_json) #200
         return HttpResponse(json.dumps(response), content_type="application/json")
 
     elif request.method == 'PUT':
@@ -45,11 +53,11 @@ def certainUser(request, user_id):
 
     elif request.method == 'DELETE':
         user_json = UsersServiceImple().deleteUser(user_id)
-        response = Response().success(user_json)
+        response = Response().resp(Constant().DELETE, user_json) #204
         return HttpResponse(json.dumps(response), content_type="application/json")
 
     else:
-        response = Response().failed()
+        response = Response().resp(Constant().SOMETHING_WRONG, None) #422
         return HttpResponse(json.dumps(response), content_type="application/json")
 
 
