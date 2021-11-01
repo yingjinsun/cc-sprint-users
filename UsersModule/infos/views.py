@@ -15,7 +15,11 @@ def index(request):
 
 def users(request):
     if request.method == 'GET':
+        limit = int(request.GET["limit"])
+        offset = int(request.GET["offset"])
         user_list_json = UsersServiceImple().getAllUsers()
+        print(user_list_json)
+        user_list_json = sorted(user_list_json, key=lambda x:x["userID"])[offset: offset + limit]
 
         response = Response().success(user_list_json)
         result = HttpResponse(json.dumps(response), content_type="application/json")

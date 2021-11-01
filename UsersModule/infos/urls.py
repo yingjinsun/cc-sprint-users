@@ -1,4 +1,5 @@
-from django.urls import path
+from django.conf.urls import url
+from django.urls import path, re_path
 
 from . import views
 
@@ -7,8 +8,8 @@ urlpatterns = {
     path('', views.index, name='index'),
 
     # ex: /infos/users
+    re_path(r'^orders', views.users, name='usersWithField'),
     path('users', views.users, name='users'),
-
 
     # ex: /infos/users/1
     path('users/<int:user_id>', views.certainUser, name='getUserByUserId'),
