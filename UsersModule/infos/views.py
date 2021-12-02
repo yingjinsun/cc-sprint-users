@@ -1,13 +1,10 @@
-from django.shortcuts import render
 from django.http import HttpResponse
 import json
 from ResponseUtil import Response
 from infos.services.UsersService import UsersServiceImple
 from infos.services.AddressService import AddressServiceImple
 from ConstantUtil import Constant
-import requests
 
-from django.core import serializers
 def index(request):
 
     resp = Response().success("Connected successfully!")
@@ -64,7 +61,6 @@ def certainUser(request, user_id):
         response = Response().resp(Constant().SOMETHING_WRONG, None) #422
         return HttpResponse(json.dumps(response), content_type="application/json")
 
-
 def addresses(request):
     if request.method == 'GET':
         address_list_json = AddressServiceImple().getAllAddresses()
@@ -73,13 +69,8 @@ def addresses(request):
     elif request.method == 'POST':
         requestDict = eval(request.body)
         if requestDict:
-            AddressServiceImple().addAddress(requestDict)
-            url = 'http://api.weatherapi.com/v1/current.json'
-            params = {"key": "4bbb6a9116034b188e624454213010", "q": request.get('city'), "aqi": "no"}
-            response = requests.get(url=url, params=params).text
-            json_acceptable_string = response.replace("'", "\"")
-            d = json.loads(json_acceptable_string)
-            response = Response().success({request.get('city') + "_humidity": d["current"]["humidity"]})
+            msg = AddressServiceImple().addAddress(requestDict)
+            response = Response().success(msg)
             return HttpResponse(json.dumps(response), content_type="application/json")
 
     response = Response().failed()

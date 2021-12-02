@@ -1,6 +1,7 @@
 from infos.models import Address
 from django.forms import model_to_dict
 from infos.models import User
+from infos.services.ValidationService import ValidationServiceImple
 
 
 class AddressServiceImple(object):
@@ -9,13 +10,22 @@ class AddressServiceImple(object):
         return addresses
 
     def addAddress(self, request):
-        new_address = Address(addressNo=request.get('address_no'),
-                        streetName1=request.get('street_name_1'),
-                        streetName2=request.get('street_name_2'),
-                        city=request.get('city'),
-                        region=request.get('region'),
-                        countryCode=request.get('country_code'),
-                        postalCode=request.get('postal_code'),
+        addressNo = request.get('address_no')
+        streetName1 = request.get('street_name_1')
+        streetName2 = request.get('street_name_2')
+        city = request.get('city')
+        region = request.get('region')
+        countryCode = request.get('country_code')
+        postalCode = request.get('postal_code')
+        validResult = ValidationServiceImple().validAddress(addressNo,streetName1,streetName2, city, region, countryCode, postalCode)
+        print(validResult)
+        new_address = Address(addressNo=addressNo,
+                        streetName1=streetName1,
+                        streetName2=streetName2,
+                        city=city,
+                        region=region,
+                        countryCode=countryCode,
+                        postalCode=postalCode,
                         userId_fk=User.objects.get(userID=request.get('user_id_fk'))
                         )
         new_address.save()
