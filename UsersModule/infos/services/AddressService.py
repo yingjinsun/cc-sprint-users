@@ -50,4 +50,5 @@ class AddressServiceImple(object):
 
     def getAddressByAddressId(self, address_id):
         address = Address.objects.filter(addressID=address_id)
+        address = list(map(lambda x: model_to_dict(x), address))
         return address

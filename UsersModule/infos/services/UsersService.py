@@ -10,7 +10,7 @@ class UsersServiceImple(object):
         new_user = User(nameLast=request.get('name_last'),
                         nameFirst=request.get('name_first'),
                         email=request.get('email'),
-                        userAddress=request.get('user_address')
+                        userAddress=request.get('address_id')
                         )
         new_user.save()
         return "Success!"
@@ -20,7 +20,7 @@ class UsersServiceImple(object):
         user.nameLast = request.get('name_last')
         user.nameFirst = request.get('name_first')
         user.email = request.get('email')
-        user.userAddress = request.get('user_address')
+        user.userAddress = request.get('address_id')
         user.save()
         return "Success!"
 
@@ -31,6 +31,5 @@ class UsersServiceImple(object):
 
     def getUserByUserId(self, user_id):
         user = User.objects.filter(userID=user_id)
-        print(user)
         user = list(map(lambda x: model_to_dict(x), user))
         return user
