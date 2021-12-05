@@ -11,6 +11,7 @@ RUN apk add musl-dev mariadb-dev gcc
 RUN pip install mysqlclient
 RUN pip install Django
 RUN pip install django-cors-headers
+RUN pip install pickledb
 
 ADD . /django_ec2
 WORKDIR /django_ec2
